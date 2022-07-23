@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/Funcs/theme_services.dart';
 import 'package:todo/UIs/NotificationScreen.dart';
 import 'package:todo/UIs/theme.dart';
+import 'package:todo/pages/HomePage.dart';
 
 
 
@@ -19,8 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: Themes.Light,
       darkTheme: Themes.Dark,
-      themeMode: ThemeMode.dark,
-      home: const NotificationScreen(payload: "Title | Desc | 10:45",),
+      themeMode: Theme_Services().theme,
+      home: HomePage(),
     );
   }
 }

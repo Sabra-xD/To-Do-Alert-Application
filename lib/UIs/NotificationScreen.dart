@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/Funcs/theme_services.dart';
 import 'package:todo/UIs/theme.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -22,7 +23,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () => Get.back(), icon: const Icon(Icons.arrow_back_ios),
+        leading: IconButton(onPressed: () {
+          Get.back();}, icon: const Icon(Icons.arrow_back_ios),
         ),
         elevation: 0,
         backgroundColor: context.theme.backgroundColor,
@@ -36,6 +38,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
             )
         ),
       ),
+        actions: [
+          IconButton(onPressed: () {
+            Theme_Services().SwitchThemes();}, icon:  Icon(Theme_Services().GetIt() ? Icons.dark_mode : Icons.light_mode),
+          ),
+        ],
 
       ),
           body: SafeArea(child: Column(
