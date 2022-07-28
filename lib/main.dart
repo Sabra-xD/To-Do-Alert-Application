@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:todo/Funcs/theme_services.dart';
 import 'package:todo/UIs/NotificationScreen.dart';
 import 'package:todo/UIs/theme.dart';
+import 'package:todo/pages/AddTaskPage.dart';
 import 'package:todo/pages/HomePage.dart';
 
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.Light,
       darkTheme: Themes.Dark,
       themeMode: Theme_Services().theme,
-      home: HomePage(),
+      home: AddTask(),
     );
   }
 }

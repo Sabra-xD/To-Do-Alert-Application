@@ -1,10 +1,13 @@
 
 
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:todo/Funcs/theme_services.dart';
 import 'package:todo/UIs/NotificationScreen.dart';
+import 'package:todo/UIs/theme.dart';
 import 'package:todo/pages/AddTaskPage.dart';
 import 'package:todo/widgets/InputText.dart';
 import 'package:todo/widgets/button.dart';
@@ -16,31 +19,46 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading:  IconButton(onPressed: () {
-          Theme_Services().SwitchThemes();
-          Get.to(const NotificationScreen(payload: "Title | Desc | 10:45",));}, icon: const Icon(Icons.arrow_back_ios),
-        ),
-        actions: [
-          IconButton(onPressed: () {
-            Theme_Services().SwitchThemes();
-            }, icon:  Icon( Theme_Services().GetIt() ? Icons.dark_mode : Icons.light_mode),
-          ),
-        ],
-      ),
+      backgroundColor: context.theme.backgroundColor,
+      appBar: _appBar(context),
 
 
     body: Column(
       children: [
 
         MyButton(label: "Add Task", onTap: () {
-          Get.to(const AddTaskPage(),);
+          Get.to(const AddTask(),);
         },
 
         ),
-        const InputField(hint: "Enter Pass",head: "Nothing",Input: null,GetIcon:null ,),
+        const InputField(hint: "Enter Pass",head: "Nothing",Input: null,GetIcon:null ,readOnly: false,),
       ],
     ),
+    );
+  }
+
+
+
+  AppBar _appBar (context){
+    return AppBar(
+      leading:  IconButton(onPressed: () {
+        Get.back();}, icon:  Icon(
+
+
+        Get.isDarkMode?
+        Icons.wb_sunny_outlined : Icons.nightlight_outlined,color: Get.isDarkMode? Colors.white : darkGreyClr,size: 24,),
+
+
+      ),
+      elevation: 0,
+      backgroundColor: context.theme.backgroundColor,
+      actions: const [
+        CircleAvatar(
+          backgroundImage: NetworkImage("https://img.freepik.com/premium-vector/man-avatar-profile-round-icon_24640-14044.jpg?w=740"),
+          radius: (18),
+        ),
+        SizedBox(width: 12,),
+      ],
     );
   }
 }

@@ -17,7 +17,7 @@ class Themes {
   static final Light = ThemeData(
 
       primaryColor: primaryClr,
-      backgroundColor: primaryClr,
+      backgroundColor: Colors.white,
       brightness: Brightness.light
   );
 
