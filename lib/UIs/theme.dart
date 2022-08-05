@@ -76,6 +76,17 @@ class Themes {
   }
 
 
+  TextStyle get DateStyle {
+    return GoogleFonts.lato(
+        textStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Get.isDarkMode ? Colors.grey : Colors.black
+        )
+    );
+  }
+
+
 
   TextStyle get BodyStyle {
     return GoogleFonts.lato(

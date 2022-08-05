@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: Themes.Light,
       darkTheme: Themes.Dark,
       themeMode: Theme_Services().theme,
-      home: AddTask(),
+      home: HomePage(),
     );
   }
 }
