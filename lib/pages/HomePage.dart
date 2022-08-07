@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:todo/Funcs/NotificationServices.dart';
 import 'package:todo/Funcs/TaskController.dart';
 import 'package:todo/UIs/theme.dart';
 import 'package:todo/pages/AddTaskPage.dart';
@@ -16,7 +17,7 @@ import 'package:todo/widgets/button.dart';
 
 
 
-bool x = false;
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -26,9 +27,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  late NotificationService NotifyHelper;
+@override
+  void initState() {
+    NotifyHelper = NotificationService();
+    NotifyHelper.initializationNotification();
+    NotifyHelper.requestIOSPermissions();
+  }
+
   final  TaskController _taskController = Get.put(TaskController());
   DateTime _selectedDate = DateTime.now();
   @override
+
+
+
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -58,6 +70,8 @@ class _HomePageState extends State<HomePage> {
   AppBar _appBar(context) {
     return AppBar(
       leading: IconButton(onPressed: () {
+        NotifyHelper.displayNotification(Title: "Notifacation", body: "Zbi Manga");
+        NotifyHelper.scheduledNotification();
         Get.back();
       }, icon: Icon(
 
@@ -137,15 +151,6 @@ class _HomePageState extends State<HomePage> {
 
  }
  }
-
-
-
-
-
-
-
-
-
 
 Row _addTask() {
   List<String> months = [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/Funcs/NotificationServices.dart';
 import 'package:todo/Funcs/theme_services.dart';
 import 'package:todo/UIs/NotificationScreen.dart';
 import 'package:todo/UIs/theme.dart';
@@ -8,8 +9,10 @@ import 'package:todo/pages/HomePage.dart';
 
 
 
-void main() {
+void main() async{
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized(); //What does this do?
+  // NotificationService().initializationNotification();
 }
 
 class MyApp extends StatelessWidget {
