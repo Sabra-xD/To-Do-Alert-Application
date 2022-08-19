@@ -1,6 +1,6 @@
 
 
-import 'dart:js';
+
 
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:todo/Funcs/NotificationServices.dart';
+import 'package:todo/Funcs/Task.dart';
 import 'package:todo/Funcs/TaskController.dart';
 import 'package:todo/UIs/theme.dart';
-import 'package:todo/pages/AddTaskPage.dart';
-import 'package:todo/widgets/SizeConfig.dart';
+import 'package:todo/pages/AddTaskPage.dart'; 
+import 'package:todo/widgets/Task_Tile.dart';
 import 'package:todo/widgets/button.dart';
 
 
@@ -59,7 +60,9 @@ class _HomePageState extends State<HomePage> {
 
           _addDateBar(),
 
-          _showTask(),
+          showTask(context),
+
+
 
         ],
       ),
@@ -92,21 +95,44 @@ class _HomePageState extends State<HomePage> {
           radius: (18),
         ),
         SizedBox(width: 12,),
+
+
+
+
       ],
     );
   }
 
- _showTask(){
-    return Expanded(
-       child: _NoTask(),
-    );
+ showTask(BuildContext context){
+    return  Expanded(
+         child: GestureDetector(
+           onTap: (){
+             print("PRESSED");
+             showBottomSheet(context,Task(
 
-    //     child: Obx(() => if(_taskController.TaskList.isEmpty){
-    //  _NoTask();
-    // }else {
-    // Text("You don't have any tasks yet :/",style: Themes().TitleStyle,);
-    // })
-    // );
+               isCompleted: 0,
+               title: 'Title 1',
+               note : "Note ONE!",
+               StartTime : "22:07",
+               EndTime : "23:07",
+               color : 0,
+             ),
+             );
+           },
+           child: TaskTile(task: Task(
+                id:1,
+                isCompleted: 1,
+                title: 'Title 1',
+               note : "Note ONE!",
+            StartTime : "22:07",
+           EndTime : "23:07",
+                color : 0,
+           ),),
+         ),
+      );
+
+
+
  }
 
  _NoTask(){
@@ -147,6 +173,69 @@ class _HomePageState extends State<HomePage> {
           });
        },
       ) ,
+    );
+
+ }
+
+ showBottomSheet(BuildContext context, Task task){
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(top: 4),
+          color: Get.isDarkMode ? darkHeaderClr : Colors.white,
+          child: Column(
+            children: [
+
+              Flexible(child: Container(
+                height: 6,
+                width: 120,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300],
+                ),
+              )),
+              const SizedBox(height: 20),
+              task.isCompleted ==1?
+                  Container() :
+                  _buildBottomSheet(label: "Task Completed", onTap: Get.back, clr: primaryClr),
+                _buildBottomSheet(label: "Delete Task", onTap: Get.back, clr: primaryClr),
+               Divider(color: Get.isDarkMode ? Colors.grey : darkGreyClr,),
+               _buildBottomSheet(label: "Cancel Task", onTap: Get.back, clr: primaryClr),
+
+
+
+              const SizedBox(height: 20,),
+
+
+            ],
+          ),
+        )
+
+      )
+    );
+
+
+ }
+ _buildBottomSheet({
+    required String label,
+   required Function() onTap,
+   required  Color clr,
+   bool isClose = false,
+}){
+
+    return GestureDetector(
+
+    onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 4),
+        height: 65,
+       child: Center(
+         child: Text(label),
+       ),
+
+
+      ),
+
     );
 
  }
@@ -199,6 +288,8 @@ Row _addTask() {
     ],
   );
 }
+
+
 
 
 
